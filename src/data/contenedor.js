@@ -94,9 +94,9 @@ class Contenedor {
 const data = new Contenedor("./utils/data.txt")
 
 function test(){
-   data.save({title: "obj1", price: 100})
-   data.save({title: "obj2", price: 300})
-   data.save({title: "obj3", price: 500})
+   data.save({title: "obj1", price: 100, photo: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png'})
+   data.save({title: "obj2", price: 300, photo: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'})
+   data.save({title: "obj3", price: 500, photo: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png'})
    // data.getAll()
    // data.getById(1)
    // data.deleteById(3)

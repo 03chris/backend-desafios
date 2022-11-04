@@ -5,10 +5,12 @@ button.addEventListener('click', e=>{
 
     const title = document.querySelector('#title').value
     const price = document.querySelector('#price').value
+    const photo = document.querySelector('#photo').value
 
     const newProduct = {
         title,
-        price
+        price,
+        photo
     }
 
     const URL = 'http://localhost:8080/api/products'

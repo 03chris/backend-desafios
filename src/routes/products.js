@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 const data = require('../data/contenedor')
 
-router.get('/', (_req, res)=>{ 
+router.get('/', (_req, res, next)=>{ 
     try{
         let products = data.getAll()
         res.status(200).render(
@@ -10,18 +10,18 @@ router.get('/', (_req, res)=>{
             {products}
         )
     }catch(err){
-        console.log(`Error ${err}`)
+        next(err)
     }
 })
 
-router.get('/:id', (req, res)=>{
+router.get('/:id', (req, res, next)=>{
     try {
         let products = data.getAll()
         const {id} = req.params
         const idProduct = products.find(e => e.id == id)
         idProduct ? res.status(200).json(idProduct) : res.status(404).json({error: 'product not found'})
-    } catch(err) {
-        console.log(`Error ${err}`)
+    }catch(err){
+        next(err)
     }
 })
 
@@ -41,23 +41,23 @@ router.put('/:id', (req, res)=>{
     return res.status(404).json({error: 'product not found'})
 })
 
-router.post('/', (req, res)=>{
+router.post('/', (req, res, next)=>{
     const body = req.body
     try {
         data.save(body)
         res.status(200).json(body)
-    }catch(err) {
-        console.log(`Error ${err}`)
+    }catch(err){
+        next(err)
     }
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', (req, res, next)=>{
     const {id} = req.params
     try{
         let product = data.deleteById(id)
         product ? res.status(200).json({response: 'deleted'}) : res.status(404).json({response: 'not found'})
-    }catch(err) {
-        console.log(`Error ${err}`)
+    }catch(err){
+        next(err)
     }
 })  
 
