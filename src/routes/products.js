@@ -1,17 +1,20 @@
 const router = require('express').Router()
 
-const data = require('../contenedor')
+const data = require('../data/contenedor')
 
-router.get('/', (_req, res) =>{ 
+router.get('/', (_req, res)=>{ 
     try{
         let products = data.getAll()
-        res.status(200).json(products)
+        res.status(200).render(
+            'products',
+            {products}
+        )
     }catch(err){
         console.log(`Error ${err}`)
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res)=>{
     try {
         let products = data.getAll()
         const {id} = req.params
@@ -38,7 +41,7 @@ router.put('/:id', (req, res)=>{
     return res.status(404).json({error: 'product not found'})
 })
 
-router.post('/', (req, res) => {
+router.post('/', (req, res)=>{
     const body = req.body
     try {
         data.save(body)

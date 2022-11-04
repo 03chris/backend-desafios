@@ -6,12 +6,16 @@ const app = express()
 app.use(express.json())
 
 const router = require('./src/routes/index')
-app.use('/api', router)
+const errorHandler = require('./src/middlewares/errorHandler')
 
-app.use('/public', express.static(__dirname + '/public'))
+app.set('views', './views')
+app.set('view engine', 'pug')
 
 app.get('/', (_req, res) =>{ 
-    res.json({message: 'Hello World'})
+    res.render('index')
 })
+
+app.use('/api', router)
+app.use(errorHandler)
 
 module.exports = app
