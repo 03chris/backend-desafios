@@ -1,17 +1,6 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Form
-  body.text-center 
-    h1 ADD PRODUCT
-    form.d-flex.flex-column.w-25.m-auto(action='/api/products' method='POST')
-      input#title.m-2(type='text' name='title' placeholder='title')
-      input#price.m-2(type='text' name='price' placeholder='price')
-      input#photo.m-2(type='text' name='photo' placeholder='URL Photo')
-      input#add.btn.btn-success.m-2(type='button' value='Add')
-      a.btn.btn-danger.m-2(href="/api/products") All Products
-    script 
-      include ../js/index.js
+h1 ADD PRODUCT
+form.d-flex.flex-column.w-25.m-auto(action='/api/products' method='POST')
+  input#title.m-2(type='text' name='title' placeholder='title')
+  input#price.m-2(type='text' name='price' placeholder='price')
+  input#photo.m-2(type='text' name='photo' placeholder='URL Photo')
+  input#add.btn.btn-success.m-2(type='button' onclick='addNewProduct()' value='Add')

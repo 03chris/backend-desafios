@@ -12,7 +12,7 @@ app.set('views', './views')
 app.set('view engine', 'pug')
 
 app.get('/', (_req, res) =>{ 
-    res.render('index')
+    res.render('home')
 })
 
 app.use('/api', router)

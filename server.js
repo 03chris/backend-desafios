@@ -1,7 +1,25 @@
 const app = require('./app')
+const {Server: HttpServer} = require('http');
+const {Server: IoServer} = require('socket.io');
 
-app.set('port', process.env.PORT || 8080)
+const http = new HttpServer(app)
+const io = new IoServer(http)
 
-app.listen(app.get('port'), ()=>{
-    console.log('Server run')
+const messages = []
+const products = require('./src/data/contenedor')
+
+const PORT = process.env.PORT || 8080
+
+http.listen(PORT, () => console.log('Server up'))
+
+io.on('connection', (socket)=>{
+    console.log('Nuevo ingreso')
+    socket.on('ADD_PRODUCT', data =>{
+        products.save(data)
+    })
+    socket.emit('UPDATE_DATA', messages)
+    socket.on('NEW_MESSAGE', data => {
+        messages.push(data)
+        io.sockets.emit('NEW_MESSAGE_FROM_SERVER', data)
+    })
 })

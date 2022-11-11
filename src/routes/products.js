@@ -6,7 +6,7 @@ router.get('/', (_req, res, next)=>{
     try{
         let products = data.getAll()
         res.status(200).render(
-            'products',
+            'index',
             {products}
         )
     }catch(err){
