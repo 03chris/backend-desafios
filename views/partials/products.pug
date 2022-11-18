@@ -1,21 +1,19 @@
 if products.length === 0
     div(class="alert alert-warning", role="alert")
-        h3 Not found products.
+        h3 Add a new product
 else
     div(class="container col-3")
         h3 Products
-        table(class="table table-dark align-middle")
-            thead
-                tr
-                    th(scope="col") ID
-                    th(scope="col") Title
-                    th(scope="col") Price
-                    th(scope="col") Photo 
-            tbody 
-                each product in products
-                    tr
-                        th(scope="row")= product.id
-                        td= product.title
-                        td= product.price
-                        td
-                            img(src=product.photo, alt=product.title)
+         each product in products
+            main.container.mt-5
+                .card.mb-3
+                img.card-img-top.w-25.mx-auto(src=`${product.photo}`, alt=`${product.title}`)
+                hr
+                .card-body.text-center
+                    h1.card-title #{product.title}
+                    p.card-text
+                    | Id: #{product.id}
+                    p.card-text
+                    small.text-muted $#{product.price}
+                    p.fs-6 Day:#{product.timestamp}
+                a.btn.btn-danger(href='/') Add to Cart

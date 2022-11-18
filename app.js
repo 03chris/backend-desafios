@@ -5,6 +5,8 @@ const app = express()
 
 app.use(express.json())
 
+global.admin = true
+
 const router = require('./src/routes/index')
 const errorHandler = require('./src/middlewares/errorHandler')
 
