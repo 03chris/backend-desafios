@@ -10,10 +10,10 @@ else
                 img.card-img-top.w-25.mx-auto(src=`${product.photo}`, alt=`${product.title}`)
                 hr
                 .card-body.text-center
-                    h1.card-title #{product.title}
+                    h1#title.card-title #{product.title}
+                    p#description.card-text
+                    | #{product.description}
                     p.card-text
-                    | Id: #{product.id}
-                    p.card-text
-                    small.text-muted $#{product.price}
+                    small#price.text-muted $#{product.price}
                     p.fs-6 Day:#{product.timestamp}
-                a.btn.btn-danger(href='/') Add to Cart
+                a.btn.btn-dark.w-25(href=`products/${product.id}`) Detail

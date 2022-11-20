@@ -19,7 +19,12 @@ const getProductsById = (req, res, next)=>{
         let products = data.getAll()
         const {id} = req.params
         const idProduct = products.find(e => e.id == id)
-        idProduct ? res.status(200).json(idProduct) : res.status(404).json({error: 'product not found'})
+        idProduct 
+            ? res.status(200).render(
+                'productDetail',
+                {idProduct}
+            )
+            : res.status(404).json({error: 'product not found'})
     }catch(err){
         next(err)
     }
@@ -27,15 +32,14 @@ const getProductsById = (req, res, next)=>{
 
 const editProduct = (req, res)=>{
     const {id} = req.params
-    const {title, price} = req.body
+    const {title, description, price} = req.body
     
     let products = data.getAll()
     const idProduct = products.find(e => e.id == id)
     if(idProduct){
-        data.editProductById(id, title, price)
+        data.editProductById(id, title, description, price)
         return res.status(200).json({
-            message: `Producto con id ${id} actualizado`, 
-            producto: {title, price}
+            producto: {title, description, price}
         })
     }
     return res.status(404).json({error: 'product not found'})
