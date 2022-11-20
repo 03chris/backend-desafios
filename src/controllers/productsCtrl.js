@@ -59,7 +59,11 @@ const deleteProductById = (req, res, next)=>{
     const {id} = req.params
     try{
         let product = data.deleteById(id)
-        product ? res.status(200).json({response: 'deleted'}) : res.status(404).json({response: 'not found'})
+        product 
+            ? res.status(200).json({
+                response: `Product ${id} deleted`
+            }) 
+            : res.status(404).json({response: 'not found'})
     }catch(err){
         next(err)
     }
