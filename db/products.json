@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Remera",
+    "description": "XL",
+    "photo": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    "price": "5000",
+    "stock": 5,
+    "id": 1,
+    "timestamp": "Wed, 23 Nov 2022 20:18:22 GMT",
+    "code": 71
+  },
+  {
+    "name": "Jean",
+    "description": "MOM",
+    "photo": "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8SkVBTlN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "price": "9000",
+    "stock": 5,
+    "id": 2,
+    "timestamp": "Wed, 23 Nov 2022 20:48:08 GMT",
+    "code": 82
+  }
+]
