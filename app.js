@@ -5,16 +5,16 @@ const app = express()
 
 app.use(express.json())
 
-global.admin = true
-
 const router = require('./src/routes/index')
 const errorHandler = require('./src/middlewares/errorHandler')
 
-app.set('views', './views')
-app.set('view engine', 'pug')
+// app.set('views', './views')
+// app.set('view engine', 'pug')
 
 app.get('/', (_req, res) =>{ 
-    res.render('home')
+    res.status(200).json({
+        message: 'Hello World'
+    })
 })
 
 app.use('/api', router)

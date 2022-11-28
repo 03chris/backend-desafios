@@ -1,78 +1,55 @@
-const data = require('../data/contenedor')
+const _ = require('lodash');
+const Contenedor = require("../data/contenedor");
+const products = new Contenedor();
 
-const getProducts = (_req, res)=>{ 
-    if(admin){
-        let products = data.getAll()
-        res.status(200).render(
-            'index',
-            {products}
-        )
-    }else{
-        res.status(404).render('error404', {
-            message: 'You are not admin. Sorry'
+// const getProducts = (_req, res)=> {
+//     let products = data.getAll()
+//     res.status(200).render(
+//         'index',
+//         {products}
+//     )
+// }
+
+const getProductsById = async (req, res, next)=>{
+    const {id} = req.params;
+    if(_.isNil(id)){
+        return res.status(400).json({
+            success: false,
+            message: 'Bad request'
         });
     }
-}
-
-const getProductsById = (req, res, next)=>{
-    try {
-        let products = data.getAll()
-        const {id} = req.params
-        const idProduct = products.find(e => e.id == id)
-        idProduct 
-            ? res.status(200).render(
-                'productDetail',
-                {idProduct}
-            )
-            : res.status(404).json({error: 'product not found'})
-    }catch(err){
-        next(err)
-    }
-}
-
-const editProduct = (req, res)=>{
-    const {id} = req.params
-    const {title, description, price} = req.body
-    
-    let products = data.getAll()
-    const idProduct = products.find(e => e.id == id)
-    if(idProduct){
-        data.editProductById(id, title, description, price)
-        return res.status(200).json({
-            producto: {title, description, price}
-        })
-    }
-    return res.status(404).json({error: 'product not found'})
-}
-
-const addNewProduct = (req, res, next)=>{
-    const body = req.body
-    try {
-        data.save(body)
-        res.status(200).json(body)
-    }catch(err){
-        next(err)
-    }
-}
-
-const deleteProductById = (req, res, next)=>{
-    const {id} = req.params
     try{
-        let product = data.deleteById(id)
-        product 
-            ? res.status(200).json({
-                response: `Product ${id} deleted`
-            }) 
-            : res.status(404).json({response: 'not found'})
+        const data = await products.getProduct(id);
+        if(!data.success){
+            return res.status(400).json(data)
+        }
+        res.status(200).json(data);
     }catch(err){
-        next(err)
+        next(err);
+    }
+}
+
+const addNewProduct = async (req, res, next)=>{
+    const  { body } = req;
+    if(_.isNil(body)){
+        return res.status(400).json({
+            success: false,
+            message: 'Bad request'
+        });
+    }
+    try{
+        const data = await products.createProduct(body);
+        if(!data.success){
+            return res.status(400).json(data)
+        }
+        res.status(200).json(data);
+    }catch(err){
+        next(err);
     }
 }
 
 module.exports = {
-    getProducts,
+    // getProducts,
     getProductsById,
-    editProduct,
-    addNewProduct,
-    deleteProductById
+    addNewProduct
 }
