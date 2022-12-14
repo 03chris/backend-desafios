@@ -1,7 +1,10 @@
 require('dotenv').config()
 const logger = require("morgan");
 const express = require('express')
+const mongoConnect = require('./src/config/index')
+
 const app = express()
+mongoConnect()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

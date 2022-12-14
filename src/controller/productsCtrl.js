@@ -1,17 +1,15 @@
-const Container = require("./container")
+const products = require('./products/containerProducts.js')
 
-const products = new Container("./db/products.json")
-
-const getProducts = (req, res) => {
+const getProducts = async (req, res) => {
   const {id} = req.params
   if(!id){
-    res.send(products.getAll())
+    res.send(await products.getProductsDB())
   }
 }
 
-const getProductsById = (req, res) =>{
-  const id = Number(req.params.id)
-  const product = products.getById(id)
+const getProductsById = async (req, res) =>{
+  const id = req.params.id
+  const product = await products.getByIdDB(id)
   if(product){
     res.json(product)
   }else{
@@ -22,26 +20,26 @@ const getProductsById = (req, res) =>{
 }
 
 const addProduct = (req, res) => {
-  const { name, description, photo, price, stock } = req.body
-  products.save({ name, description, photo, price, stock })
+  const product = req.body
+  products.saveDB(product)
   res.status(201).json({ message: "Producto agregado!" })
 }
 
-const updateProduct = (req, res) => {
-  const id = Number(req.params.id)
-  if(id < 0 || id > products.objects.length || isNaN(id)){
+const updateProduct = async (req, res) => {
+  const id = req.params.id
+  if(!id){
     return res.status(400).send({ 
       message: "Producto no encontrado" 
     }) 
   }
-  products.update(id, req.body)
+  await products.updateProductDB(id, req.body)
   res.json({ message: "Producto actualizado" })
 }
 
-const deleteProductById = (req, res) => {
+const deleteProductById = async (req, res) => {
   const {id} = req.params
   try{
-      let product = products.deleteById(id)
+      let product = await products.deleteProductDB(id)
       product 
           ? res.status(200).json({
               response: `Producto con el id: ${id} eliminado`
