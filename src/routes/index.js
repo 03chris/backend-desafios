@@ -1,9 +1,9 @@
 const router = require('express').Router()
 
-const products = require('./products')
-const cart = require('./cart')
+const {productsCtrl} = require('../controller/productsCtrl')
+const chatCtrl = require('../controller/chatCtrl')
 
-router.use('/products', products)
-router.use('/cart', cart)
+router.use('/products-test', productsCtrl)
+router.use('/chat', chatCtrl)
 
 module.exports = router
