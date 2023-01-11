@@ -8,8 +8,14 @@ router.get('/login', (req, res)=>{
     res.render('login')
 })
 
-router.get('/', auth, (_req, res)=>{
-    res.render('home')
+router.get('/', auth, (req, res)=>{
+    res.render('home', {
+        username: req.session.username
+    })
+})
+
+router.get('/exit', (_req, res)=>{
+    res.render('exit')
 })
 
 module.exports = router

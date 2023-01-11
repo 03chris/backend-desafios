@@ -22,13 +22,20 @@ router.post('/login', async (req, res)=>{
 })
 
 router.get('/exit', (req, res)=>{
-    req.session.destroy((err)=>{
-        if(err){
-            console.error(err)
-            process.exit()
-        }
-    })
-    res.redirect('/login')
+    req.session.destroy(err => {
+        if (err)
+          return res.status(500).json({
+            success: false,
+            message: err.message
+          });
+          
+          
+        res.clearCookie('username')
+        res.status(200).json({
+          success: true,
+          message: 'OK'
+        })
+      });
 })
 
 module.exports = router
