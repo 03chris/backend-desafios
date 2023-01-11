@@ -1,9 +1,34 @@
 const router = require('express').Router()
+const UserSchema = require('../models/userModel')
 
-const {productsCtrl} = require('../controller/productsCtrl')
-const chatCtrl = require('../controller/chatCtrl')
+router.post('/login', async (req, res)=>{
+    const { username } = req.body
+    const findUser = await UserSchema.findOne({username})
+    if(findUser){
+        return res.status(403).json({
+            err: 'El nombre que ingresaste ya existe'
+        })
+    }
+    const newUser = new UserSchema({
+        username
+    })
+    const addUser = await newUser.save()
+    if(!addUser){
+        console.log('ERROR')
+    }
+    req.session.username = username
+    req.session.isAuth = true
+    res.redirect('/')
+})
 
-router.use('/products-test', productsCtrl)
-router.use('/chat', chatCtrl)
+router.get('/exit', (req, res)=>{
+    req.session.destroy((err)=>{
+        if(err){
+            console.error(err)
+            process.exit()
+        }
+    })
+    res.redirect('/login')
+})
 
 module.exports = router
