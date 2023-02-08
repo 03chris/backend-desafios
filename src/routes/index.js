@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const UserSchema = require('../models/userModel')
 const jwt = require('jsonwebtoken')
-const { fork } = require("child_process");
 
 const auth = require('../middlewares/auth')
 
@@ -113,16 +112,5 @@ router.get('/info', (_req, res)=>{
     info: info
   })
 })
-
-router.get('/random', (req, res) => {
-	const forked = fork('src/utils/getRandom.js');
-
-	let { cantidad } = req.query;
-	let obj = {};
-	cantidad
-		? forked.send({ cantidad, obj })
-		: forked.send({ cantidad: 500000000, obj });
-	forked.on('message', msg => res.json(msg));
-});
 
 module.exports = router
