@@ -23,7 +23,7 @@ UserSchema.methods.encryptPassword = async (password) =>{
 }
 
 UserSchema.methods.validatePassword = function (password){
-    return bcrypt.compare(password, this.password)
+    return bcrypt.compareSync(password, this.password)
 }
 
 module.exports = mongoose.model('user', UserSchema)
