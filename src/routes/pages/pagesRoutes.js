@@ -5,11 +5,7 @@ router.get('/', (_req, res)=>{
     res.render('welcome')
 })
 
-router.get('/cart', (_req, res)=>{
-    res.render('cart')
-})
-
-router.get('/home', isAuthenticated, (req, res)=>{
+router.get('/home', isAuthenticated, (_req, res)=>{
     res.render('home')
 })
 
@@ -19,6 +15,14 @@ router.get('/signup', (_req, res)=>{
 
 router.get('/login', (_req, res)=>{
     res.render('login')
+})
+
+router.get('/cart', isAuthenticated, (_req, res)=>{
+    res.render('cart')
+})
+
+router.get('/checkout', isAuthenticated, (_req, res)=>{
+    res.render('checkout')
 })
 
 module.exports = router

@@ -39,7 +39,7 @@ const pagesRoutes = require('./src/routes/pages/pagesRoutes')
 app.set('views', './src/views')
 app.set('view engine', 'ejs')
 
-app.use((req, res, next)=>{
+app.use((req, _res, next)=>{
     app.locals.signupMessage = req.flash('signupMessage')
     app.locals.loginMessage = req.flash('loginMessage')
     app.locals.user = req.user

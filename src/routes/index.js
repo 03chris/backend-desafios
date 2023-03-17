@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const UserSchema = require('../models/userModel')
 
 const passport = require('passport')
+
+const sendSms = require('../utils/functions')
 
 router.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/home',
@@ -24,5 +25,12 @@ router.get("/logout", function(req, res, next) {
   });
 });
 
+router.post('/checkout', async (_req, res) =>{
+  await sendSms({
+    body: 'Gracias por tu compra!'
+  });
+
+  return res.status(200).json({message: 'Mensaje enviado!'});
+})
 
 module.exports = router
