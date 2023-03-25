@@ -1,8 +1,15 @@
 const router = require('express').Router()
 
+const products = require('./products')
+const cart = require('./cart')
+
 const passport = require('passport')
 
 const sendSms = require('../utils/functions')
+
+
+router.use('/products', products)
+router.use('/cart', cart)
 
 router.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/home',

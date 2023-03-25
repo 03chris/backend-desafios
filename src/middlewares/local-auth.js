@@ -18,7 +18,7 @@ passport.use('local-signup', new LocalStrategy({
   passReqToCallback: true
 }, async (req, email, password, done) => {
 
-  const user = UserSchema.findOne({email: email})
+  const user = await UserSchema.findOne({email: email})
   if(user){
     return done(null, false, req.flash('signupMessage', 'The email is register'))
   }else{

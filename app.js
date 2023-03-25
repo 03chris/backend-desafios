@@ -35,6 +35,8 @@ app.use(passport.session())
 
 const router = require('./src/routes/index')
 const pagesRoutes = require('./src/routes/pages/pagesRoutes')
+const errorHandler = require('./src/middlewares/errorHandler')
+
 
 app.set('views', './src/views')
 app.set('view engine', 'ejs')
@@ -48,5 +50,6 @@ app.use((req, _res, next)=>{
 
 app.use('/', router)
 app.use(pagesRoutes)
+app.use(errorHandler)
 
 module.exports = app
