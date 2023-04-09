@@ -56,4 +56,5 @@ class ProductsDB{
 
 const products = new ProductsDB()
 
-module.exports = products
+module.exports = ProductsDB
+// module.exports = products
